@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->foreignId('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
