@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(Company::class, function (Faker $faker) {
     return [
-        'name' => $faker->company,
-        'email' => $faker->companyEmail,
-        'password' => Hash::make('remember'),
+        'name' => $faker->unique()->company,
+        'email' => $faker->unique()->companyEmail,
+        'password' => Hash::make('company'),
         'logo' => $faker->imageUrl($width = 150, $height = 48),
         'url' => $faker->url
     ];
