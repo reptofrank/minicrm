@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Company;
+use App\Models\Company;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 
