@@ -11,6 +11,8 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Company::class, 5)->create()->each(function($company){
+            $company->employees()->createMany(factory(App\Employee::class, 3)->make()->toArray());
+        });
     }
 }
