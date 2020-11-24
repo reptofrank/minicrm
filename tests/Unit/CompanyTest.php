@@ -14,8 +14,21 @@ class CompanyTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testGetEmployees()
     {
-        $this->assertTrue(true);
+        $company = factory(\App\Company::class)->create();
+
+        $employees = $company->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+
+        $company_user = $company->user;
+
+        $this->be($company_user);
+
+        $response = $this->get('/employees');
+
+        $data = $response->json();
+
+        // $this->be($company_user);
+        $this->assertCount(3, $data);
     }
 }
