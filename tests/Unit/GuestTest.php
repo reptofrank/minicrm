@@ -2,17 +2,26 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class GuestTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic unit test example.
      *
      * @return void
      */
-    public function testExample()
+    public function testGetAllCompanies()
     {
-        $this->assertTrue(true);
+        factory(\App\Company::class, 5)->create();
+
+        $response = $this->get('/companies');
+
+        $data = $response->json();
+
+        $this->assertCount(5, $data);
     }
 }
