@@ -13,4 +13,12 @@ class Company extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the employees associated with the company.
+     */
+    public function employees()
+    {
+        return $this->hasMany('App\Employee');
+    }
 }
