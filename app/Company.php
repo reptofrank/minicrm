@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    protected $fillable = ['name', 'logo', 'url'];
+    
     /**
      * Get the company level user associated with the company.
      */
