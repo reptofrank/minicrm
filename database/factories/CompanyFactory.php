@@ -10,6 +10,7 @@ $factory->define(Company::class, function (Faker $faker) {
     return [
         'name' => $faker->unique()->company,
         'logo' => $faker->imageUrl($width = 150, $height = 48),
-        'url' => $faker->url
+        'url' => $faker->url,
+        'user_id' => factory(App\User::class)->create(['role' => 'company'])->id
     ];
 });
