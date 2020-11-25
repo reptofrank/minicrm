@@ -20,9 +20,7 @@ class CompanyTest extends TestCase
 
         $employees = $company->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
 
-        $company_user = $company->user;
-
-        $this->be($company_user);
+        $this->be($company->user);
 
         $response = $this->get('/employees');
 
@@ -30,5 +28,16 @@ class CompanyTest extends TestCase
 
         // $this->be($company_user);
         $this->assertCount(3, $data);
+    }
+
+    public function testGetCompany()
+    {
+        $company = factory(\App\Company::class)->create();
+
+        $response = $this->get('/companies/' . $company->id);
+
+        $response->assertOk();
+
+        
     }
 }
