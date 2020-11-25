@@ -30,8 +30,17 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $data = $request->all();
+        $user = $this->createUser($data, 'employee');
+
+        $employee = new Employee;
+        $employee->name = $data['name'];
+        $employee->company_id = $data['company'];
+        $employee->user_id = $user->id;
+        $employee->save();
+
+        return response()->json($employee, 201, ['Location' => '/employees/' . $employee->id]);
     }
 
     /**
@@ -59,7 +68,7 @@ class EmployeeController extends Controller
         $data = $request->all();
 
         if(array_key_exists('user_id', $data)) unset($data['user_id']);
-        
+
         $updatedEmployee = $employee->fill($data);
 
         $updatedEmployee->save();
