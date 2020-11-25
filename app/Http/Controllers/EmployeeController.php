@@ -12,11 +12,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view-employees');
-        
-        $employees = Employee::all();
+
+        $user = $request->user();
+
+        $employees = $user->role === 'admin' ? Employee::all() : Employee::where(['company_id' => $user->company->id])->get();
 
         return response()->json($employees);
     }
