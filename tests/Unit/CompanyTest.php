@@ -10,7 +10,7 @@ class CompanyTest extends TestCase
     use RefreshDatabase;
     
     /**
-     * A basic unit test example.
+     * Get Company employees.
      *
      * @return void
      */
@@ -26,10 +26,26 @@ class CompanyTest extends TestCase
 
         $data = $response->json();
 
-        // $this->be($company_user);
         $this->assertCount(3, $data);
     }
 
+    /**
+     * Get employees belonging to another company
+     */
+    public function testGetAnotherCompanyEmployee()
+    {
+        $companies = factory(\App\Company::class, 2)->create();
+
+        $companyOneEmployees = $companies[0]->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+
+        $this->be($companies[1]->user);
+
+        $response = $this->get('/employees');
+
+        $this->assertCount(0, $response->json());
+    }
+
+    
     public function testGetCompany()
     {
         $company = factory(\App\Company::class)->create();
@@ -37,7 +53,5 @@ class CompanyTest extends TestCase
         $response = $this->get('/companies/' . $company->id);
 
         $response->assertOk();
-
-        
     }
 }
