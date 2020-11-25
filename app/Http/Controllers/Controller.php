@@ -16,13 +16,13 @@ class Controller extends BaseController
     /**
      * Create a new company or employee level user
      */
-    public function createUser($data, $type)
+    public function createUser($data, $role)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $type
+            'role' => $role
         ]);
     }
 }
