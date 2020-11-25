@@ -42,6 +42,8 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
+        $this->authorize('view-employee', $employee);
+
         return response()->json($employee);
     }
 

@@ -58,7 +58,6 @@ class EmployeeTest extends TestCase
         $this->be($employees[0]->user);
 
         $response = $this->get('/employees/' . $employees[1]->id);
-        $data = $response->json();
 
         $response->assertStatus(403);
     }
