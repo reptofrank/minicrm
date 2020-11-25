@@ -46,11 +46,11 @@ class EmployeeTest extends TestCase
     }
 
     /**
-     * Test to get own details.
+     * Test to get other employee details.
      *
      * @return void
      */
-    public function testGetOtherForbidden()
+    public function testGetOtherEmployeeForbidden()
     {
         $employees = factory(\App\Company::class)->create()
             ->employees()->createMany(factory(\App\Employee::class, 2)->make()->toArray());
@@ -60,5 +60,27 @@ class EmployeeTest extends TestCase
         $response = $this->get('/employees/' . $employees[1]->id);
 
         $response->assertStatus(403);
+    }
+
+    /**
+     * Test update self
+     * 
+     */
+    public function testUpdateSelf()
+    {
+        $employee = factory(\App\Company::class)->create()
+            ->employees()->create(factory(\App\Employee::class)->make()->toArray());
+        
+        $this->be($employee->user);
+
+        $name = 'Updated Name';
+
+        $response = $this->put('/employees/' . $employee->id, array_merge($employee->toArray(), ['name' => $name]));
+
+        $updated = $response->json();
+        
+        $response->assertOk();
+
+        $this->assertEquals($name, $updated['name']);
     }
 }
