@@ -14,6 +14,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-employees');
+        
         $employees = Employee::all();
 
         return response()->json($employees);

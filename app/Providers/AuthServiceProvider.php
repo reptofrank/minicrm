@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-employees', function($user) {
+            return $user->role === 'company';
+        });
     }
 }
