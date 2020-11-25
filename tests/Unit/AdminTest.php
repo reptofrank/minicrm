@@ -7,12 +7,24 @@ use Tests\TestCase;
 class AdminTest extends TestCase
 {
     /**
-     * A basic unit test example.
+     * Test admin can view all employees.
      *
      * @return void
      */
-    public function testExample()
+    public function testViewEmployees()
     {
-        $this->assertTrue(true);
+        factory(\App\Company::class, 2)->create()->each(function($company){
+            $company->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+        });
+
+        $adminUser = factory(\App\User::class)->create();
+
+        $this->be($adminUser);
+
+        $response = $this->get('/employees');
+
+        $data = $response->json();
+
+        $this->assertCount(6, $data);
     }
 }
