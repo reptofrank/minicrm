@@ -56,7 +56,15 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $data = $request->all();
+
+        if(array_key_exists('user_id', $data)) unset($data['user_id']);
+        
+        $updatedEmployee = $employee->fill($data);
+
+        $updatedEmployee->save();
+
+        return response()->json($updatedEmployee);
     }
 
     /**
