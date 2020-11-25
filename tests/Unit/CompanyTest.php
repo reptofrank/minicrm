@@ -32,7 +32,7 @@ class CompanyTest extends TestCase
     /**
      * Get employees belonging to another company
      */
-    public function testGetAnotherCompanyEmployee()
+    public function testNotGetAnotherCompanyEmployee()
     {
         $companies = factory(\App\Company::class, 2)->create();
 
@@ -45,7 +45,7 @@ class CompanyTest extends TestCase
         $this->assertCount(0, $response->json());
     }
 
-    
+
     public function testGetCompany()
     {
         $company = factory(\App\Company::class)->create();

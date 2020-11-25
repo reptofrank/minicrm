@@ -44,4 +44,22 @@ class EmployeeTest extends TestCase
         $response->assertOk();
         $this->assertEquals($employee->name, $data['name']);
     }
+
+    /**
+     * Test to get own details.
+     *
+     * @return void
+     */
+    public function testGetOtherForbidden()
+    {
+        $employees = factory(\App\Company::class)->create()
+            ->employees()->createMany(factory(\App\Employee::class, 2)->make()->toArray());
+        
+        $this->be($employees[0]->user);
+
+        $response = $this->get('/employees/' . $employees[1]->id);
+        $data = $response->json();
+
+        $response->assertStatus(403);
+    }
 }
