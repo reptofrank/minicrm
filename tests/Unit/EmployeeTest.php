@@ -14,8 +14,15 @@ class EmployeeTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testGetEmployees()
     {
-        $this->assertTrue(true);
+        $employees = factory(\App\Company::class)->create()
+            ->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+        
+        $this->be($employees[0]->user);
+
+        $response = $this->get('/employees');
+
+        $response->assertStatus(403);
     }
 }
