@@ -25,4 +25,23 @@ class EmployeeTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    /**
+     * Test to get own details.
+     *
+     * @return void
+     */
+    public function testGetSelf()
+    {
+        $employee = factory(\App\Company::class)->create()
+            ->employees()->create(factory(\App\Employee::class)->make()->toArray());
+        
+        $this->be($employee->user);
+
+        $response = $this->get('/employees/' . $employee->id);
+        $data = $response->json();
+
+        $response->assertOk();
+        $this->assertEquals($employee->name, $data['name']);
+    }
 }
