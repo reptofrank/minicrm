@@ -30,5 +30,6 @@ Route::resource('employees', EmployeeController::class);
 
 // Admin Routes
 Route::get('/users', [AdminController::class, 'users']);
+Route::post('/users', [AdminController::class, 'addAdminUser']);
 
 Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);

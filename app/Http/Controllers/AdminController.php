@@ -24,6 +24,18 @@ class AdminController extends Controller
     }
 
     /**
+     * Add User
+     */
+    public function addAdminUser(Request $request)
+    {
+        $this->authorize('admin');
+
+        $user = $this->createUser($request->all(), 'admin');
+
+        return response()->json($user, 201);
+    }
+
+    /**
      * Delete user
      */
     public function deleteUser(User $user)
