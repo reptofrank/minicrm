@@ -70,4 +70,17 @@ class AdminTest extends TestCase
         $response->assertOk();
         $this->assertEquals($newName, $data['name']);
     }
+
+    public function testDeleteUser()
+    {
+        $adminUser = factory(\App\User::class)->create();
+        
+        $user = factory(\App\Company::class)->create()->user;
+
+        $this->be($adminUser);
+
+        $response = $this->delete('/users/' . $user->id);
+        
+        $response->assertStatus(204);
+    }
 }
