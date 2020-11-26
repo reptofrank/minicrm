@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Resources\Company as CompanyResource;
+use App\Http\Resources\CompanyCollection;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -15,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = new CompanyCollection(Company::all());
 
         return response()->json($companies);
     }
