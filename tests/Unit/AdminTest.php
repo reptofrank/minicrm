@@ -14,7 +14,7 @@ class AdminTest extends TestCase
      */
     public function testViewAllUsers()
     {
-        $users = factory(\App\Company::class, 3)->create()->each(function($company){
+        factory(\App\Company::class, 3)->create()->each(function($company){
             $company->employees()->createMany(factory(\App\Employee::class, 5)->make()->toArray());
         });
 
@@ -27,6 +27,6 @@ class AdminTest extends TestCase
         $data = $response->json();
 
         $response->assertOk();
-        $this->assertCount(16, $data);
+        $this->assertCount(19, $data);
     }
 }
