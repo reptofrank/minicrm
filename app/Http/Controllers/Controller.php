@@ -19,7 +19,6 @@ class Controller extends BaseController
     public function createUser($data, $role)
     {
         return User::create([
-            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $role
