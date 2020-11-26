@@ -29,4 +29,45 @@ class AdminTest extends TestCase
         $response->assertOk();
         $this->assertCount(19, $data);
     }
+
+    public function testCreateCompany()
+    {
+        $adminUser = factory(\App\User::class)->create();
+
+        $this->be($adminUser);
+
+        $company = [
+            'name' => 'Jobberman',
+            'email' => 'info@jobberman.com',
+            'password' => 'Tomorrow',
+            'url' => 'https://www.jobberman.com',
+            'logo' => 'https://www.jobberman.com/images/logo.png'
+        ];
+
+        $response = $this->post('/companies', $company);
+
+        $data = $response->json();
+
+        $response->assertStatus(201);
+        $response->assertHeader('Location');
+        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('user_id', $data);
+        $this->assertArrayNotHasKey('email', $data);
+    }
+
+    public function testUpdateCompany()
+    {
+        $adminUser = factory(\App\User::class)->create();
+        
+        $company = factory(\App\Company::class)->create();
+
+        $company->name = $newName = 'Edison Electrical';
+
+        $this->be($adminUser);
+
+        $response = $this->put('/companies/' . $company->id, $company->toArray());
+        $data = $response->json();
+        $response->assertOk();
+        $this->assertEquals($newName, $data['name']);
+    }
 }
