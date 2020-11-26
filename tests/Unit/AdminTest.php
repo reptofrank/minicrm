@@ -103,4 +103,17 @@ class AdminTest extends TestCase
         
         $response->assertStatus(204);
     }
+
+    public function testDeleteCompany()
+    {
+        $adminUser = factory(\App\User::class)->create();
+        
+        $company = factory(\App\Company::class)->create();
+
+        $this->be($adminUser);
+
+        $response = $this->delete('/companies/' . $company->id);
+
+        $response->assertStatus(204);
+    }
 }
