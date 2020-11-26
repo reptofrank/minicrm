@@ -83,4 +83,16 @@ class EmployeeTest extends TestCase
 
         $this->assertEquals($name, $updated['name']);
     }
+
+    public function testDeleteSelfForbidden()
+    {
+        $employee = factory(\App\Company::class)->create()
+            ->employees()->create(factory(\App\Employee::class)->make()->toArray());
+        
+        $this->be($employee->user);
+
+        $response = $this->delete('/employees/' . $employee->id);
+
+        $response->assertStatus(403);
+    }
 }
