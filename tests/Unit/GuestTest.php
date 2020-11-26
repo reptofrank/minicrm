@@ -26,19 +26,18 @@ class GuestTest extends TestCase
     }
 
     /**
-     * Test get all companies as guest with their email address.
+     * Test get all companies as guest paginated.
      *
      * @return void
      */
-    public function testGetAllCompaniesWithEmail()
+    public function testGetAllCompaniesPaginated()
     {
-        factory(\App\Company::class, 5)->create();
+        factory(\App\Company::class, 13)->create();
 
         $response = $this->get('/companies');
 
         $data = $response->json();
 
-        $this->assertCount(5, $data);
-        $this->assertArrayHasKey('email', $data['data']);
+        $this->assertCount(5, $data['data']);
     }
 }
