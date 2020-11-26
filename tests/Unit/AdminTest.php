@@ -71,6 +71,26 @@ class AdminTest extends TestCase
         $this->assertEquals($newName, $data['name']);
     }
 
+    public function testAddAdminUser()
+    {
+        $adminUser = factory(\App\User::class)->create();
+        $user = [
+            'email' => 'admin@minicrm.com',
+            'password' => 'Yesterday'
+        ];
+
+        $this->be($adminUser);
+
+        $response = $this->post('/users', $user);
+
+        $response->assertStatus(201);
+
+        $data = $response->json();
+
+        $this->assertEquals($user['email'], 'admin@minicrm.com');
+        $this->assertEquals('admin', $data['role']);
+    }
+
     public function testDeleteUser()
     {
         $adminUser = factory(\App\User::class)->create();
