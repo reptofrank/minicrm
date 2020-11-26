@@ -43,7 +43,7 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
         $employee->save();
 
-        return response()->json($employee, 201, ['Location' => '/employees/' . $employee->id]);
+        return response()->json($employee, 201, ['Location' => route('employees.show', ['employee' => $employee->id])]);
     }
 
     /**
