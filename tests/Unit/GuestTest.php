@@ -80,4 +80,21 @@ class GuestTest extends TestCase
         $response->assertOk();
         $this->assertCount(3, $data['data']);
     }
+
+    public function testGetCompaniesPagination()
+    {
+        $companies = factory(\App\Company::class, 13)->create();
+
+        $response = $this->get('/companies?page=3');
+
+        $data = $response->json();
+
+        $response->assertOk();
+        $this->assertArrayHasKey('data', $data);
+        $this->assertCount(3, $data['data']);
+        $this->assertArrayHasKey('links', $data);
+        $this->assertArrayHasKey('first', $data['links']);
+        $this->assertArrayHasKey('prev', $data['links']);
+        $this->assertNull($data['links']['next']);
+    }
 }
