@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('companies', CompanyController::class);
+
 Route::resource('employees', EmployeeController::class);
+
+
+// Admin Routes
+Route::get('/users', [AdminController::class, 'users']);

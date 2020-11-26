@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    function __construct() {
+        $this->authorize('admin');    
+    }
+
     /**
      * Get all users
      */
