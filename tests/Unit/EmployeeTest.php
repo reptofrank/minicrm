@@ -14,7 +14,7 @@ class EmployeeTest extends TestCase
      *
      * @return void
      */
-    public function testGetEmployees()
+    public function testGetEmployeesForbidden()
     {
         $employees = factory(\App\Company::class)->create()
             ->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
