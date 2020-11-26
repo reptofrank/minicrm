@@ -27,6 +27,14 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $this->authorize('admin');
+
+        $data = $request->all();
+
+        $user = $this->createUser($data, 'company');
+
+        $company = $user->company()->create($data);
+
+        return response()->json($company, 201, ['Location' => route('companies.show', ['company' => $company->id])]);
     }
 
     /**
@@ -49,7 +57,14 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $this->authorize('admin');
+
+        $company->name = $request->input('name');
+        $company->logo = $request->input('logo');
+        $company->url = $request->input('url');
+        $company->save();
+
+        return response()->json($company);
     }
 
     /**
