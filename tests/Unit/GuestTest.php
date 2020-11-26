@@ -61,4 +61,23 @@ class GuestTest extends TestCase
 
         $this->assertCount(5, $data['data']);
     }
+
+
+
+    /**
+     * Test get 2nd page of all companies as guest paginated.
+     *
+     * @return void
+     */
+    public function testGetLastPageCompaniesPaginated()
+    {
+        $companies = factory(\App\Company::class, 13)->create();
+
+        $response = $this->get('/companies?page=3');
+
+        $data = $response->json();
+
+        $response->assertOk();
+        $this->assertCount(3, $data['data']);
+    }
 }
