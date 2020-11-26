@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = new CompanyCollection(Company::all());
+        $companies = new CompanyCollection(Company::paginate(5));
 
         return response()->json($companies);
     }
