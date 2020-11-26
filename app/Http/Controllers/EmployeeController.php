@@ -14,7 +14,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view-employees');
+        $this->authorize('manage-employees');
 
         $user = $request->user();
 
@@ -30,7 +30,10 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
+
+        $this->authorize('manage-employees');
+
         $data = $request->all();
         $user = $this->createUser($data, 'employee');
 
@@ -65,6 +68,8 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
+        $this->authorize('view-employee', $employee);
+
         $data = $request->all();
 
         if(array_key_exists('user_id', $data)) unset($data['user_id']);
@@ -84,6 +89,12 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $this->authorize('manage-employees', $employee);
+        
+        $user = $employee->user;
+        $employee->delete();
+        $user->delete();
+
+        return response(null, 204);
     }
 }
