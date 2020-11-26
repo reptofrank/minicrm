@@ -34,11 +34,11 @@ class CompanyTest extends TestCase
      */
     public function testNotGetAnotherCompanyEmployee()
     {
-        $companies = factory(\App\Company::class, 2)->create();
+        list($firstComp, $secondComp) = factory(\App\Company::class, 2)->create();
 
-        $companyOneEmployees = $companies[0]->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+        $firstComp->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
 
-        $this->be($companies[1]->user);
+        $this->be($secondComp->user);
 
         $response = $this->get('/employees');
 
