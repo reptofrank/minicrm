@@ -18,7 +18,7 @@ class EmployeeController extends Controller
 
         $user = $request->user();
 
-        $employees = $user->role === 'admin' ? Employee::all() : Employee::where(['company_id' => $user->company->id])->get();
+        $employees = Employee::where(['company_id' => $user->company->id])->get();
 
         return response()->json($employees);
     }

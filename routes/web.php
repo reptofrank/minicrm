@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('companies', CompanyController::class);
 
+// Employee Routes
 Route::resource('employees', EmployeeController::class);
 
 
