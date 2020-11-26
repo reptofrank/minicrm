@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Resources\Company as CompanyResource;
-use App\Http\Resources\CompanyCollection;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -16,9 +15,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = new CompanyCollection(Company::paginate(5));
-
-        return response()->json($companies);
+        return CompanyResource::collection(Company::paginate(5));
     }
 
     /**
