@@ -78,4 +78,36 @@ class CompanyTest extends TestCase
         $this->assertEquals($company->id, $result['company_id']);
         $this->assertArrayNotHasKey('password', $result);
     }
+
+    /**
+     * Delete own employee
+     */
+    public function testDeleteOwnEmployee()
+    {
+        $company = factory(\App\Company::class)->create();
+
+        $employees = $company->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+
+        $this->be($company->user);
+
+        $response = $this->delete('/employees/' . $employees[0]->id);
+
+        $response->assertStatus(204);
+    }
+
+    /**
+     * Delete other company's employee
+     */
+    public function testDeleteOtherCompanyEmployeeForbidden()
+    {
+        list($firstComp, $secondComp) = factory(\App\Company::class, 2)->create();
+
+        $firstCompEmp = $firstComp->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
+
+        $this->be($secondComp->user);
+
+        $response = $this->delete('/employees/' . $firstCompEmp[0]->id);
+
+        $response->assertStatus(403);
+    }
 }
