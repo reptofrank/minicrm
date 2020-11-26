@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show companies.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,18 +19,18 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create new company.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('admin');
     }
 
     /**
-     * Display the specified resource.
+     * Get specified company.
      *
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
@@ -41,7 +41,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update company.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Company  $company
@@ -53,7 +53,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete company
      *
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
