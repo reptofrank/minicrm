@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/companies', [CompanyController::class, 'index']);
+
+Route::get('/companies', 'CompanyController@index');
 
 Route::middleware('auth')->group(function(){
     Route::resource('companies', CompanyController::class)->except('index');
