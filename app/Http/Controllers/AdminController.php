@@ -14,6 +14,11 @@ class AdminController extends Controller
         $this->authorize('admin');    
     }
 
+    public function dashboard(Request $request)
+    {
+        return view('dashboard');
+    }
+
     /**
      * Get all users
      */

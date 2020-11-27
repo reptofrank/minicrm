@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function(){
     // Admin Routes
 
     Route::prefix('admin')->group(function(){
+        Route::get('/', [AdminController::class, 'dashboard']);
+
         Route::get('/users', [AdminController::class, 'users']);
         Route::post('/users', [AdminController::class, 'addAdminUser']);
 
