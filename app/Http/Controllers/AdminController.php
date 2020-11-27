@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
 
     function __construct() {
-        $this->authorize('admin');    
+        $this->authorize('admin');
     }
 
     public function dashboard(Request $request)
