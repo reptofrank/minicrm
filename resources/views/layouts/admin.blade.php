@@ -48,30 +48,17 @@
                         <li class="nav-item hide-lg">
                             <a href="/users" class="nav-link">users</a>
                         </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->email }}
+                            </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                </div>
-                            </li>
-                        @endguest
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}">
+                                    {{ __('Logout') }}
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -80,24 +67,24 @@
         <main>
             <aside class="side-nav">
                 <div class="side-nav__content">
-                  <nav class="side-nav__nav">
-                    <ul class="side-nav__nav-list">
-                      <li class="side-nav__nav-list-item">
-                        <a href="#" class="side-nav__nav-link">Home</a>
-                      </li>
-                      <li class="side-nav__nav-list-item">
-                        <a href="#" class="side-nav__nav-link">Companies</a>
-                      </li>
-                      <li class="side-nav__nav-list-item">
-                        <a href="#" class="side-nav__nav-link">Users</a>
-                      </li>
-                    </ul>
-                  </nav>
+                    <nav class="side-nav__nav">
+                        <ul class="side-nav__nav-list">
+                            <li class="side-nav__nav-list-item">
+                                <a href="#" class="side-nav__nav-link">Home</a>
+                            </li>
+                            <li class="side-nav__nav-list-item">
+                                <a href="#" class="side-nav__nav-link">Companies</a>
+                            </li>
+                            <li class="side-nav__nav-list-item">
+                                <a href="#" class="side-nav__nav-link">Users</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-              </aside>
-              <section class="content py-4">
+            </aside>
+            <section class="content py-4">
                 @yield('content')
-              </section>
+            </section>
         </main>
     </div>
 </body>
