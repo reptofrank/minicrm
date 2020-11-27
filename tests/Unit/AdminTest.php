@@ -22,7 +22,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->get('/users');
+        $response = $this->get('/admin/users');
 
         $data = $response->json();
 
@@ -81,7 +81,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->post('/users', $user);
+        $response = $this->post('/admin/users', $user);
 
         $response->assertStatus(201);
 
@@ -99,7 +99,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->delete('/users/' . $user->id);
+        $response = $this->delete('/admin/users/' . $user->id);
         
         $response->assertStatus(204);
     }
