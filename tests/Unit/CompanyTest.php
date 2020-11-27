@@ -49,6 +49,8 @@ class CompanyTest extends TestCase
     public function testGetCompany()
     {
         $company = factory(\App\Company::class)->create();
+        
+        $this->be($company->user);
 
         $response = $this->get('/companies/' . $company->id);
 
