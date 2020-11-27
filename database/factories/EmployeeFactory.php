@@ -9,6 +9,6 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(Employee::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'user_id' => factory(App\User::class)->create(['role' => 'employee'])->id
+        'user_id' => factory(App\User::class)->create(['role' => 'employee', 'password' => Hash::make('employee')])->id
     ];
 });
