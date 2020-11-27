@@ -75,6 +75,11 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $this->authorize('admin');
+
+        $company->user->delete();
+        $company->delete();
+
+        return response(null, 204);
     }
 }
