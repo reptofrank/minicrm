@@ -1927,23 +1927,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      companies: [],
-      company: {
-        name: '',
-        url: '',
-        logo: '',
-        email: ''
-      },
-      pagination: {}
+      companies: []
     };
   },
   created: function created() {
@@ -1951,7 +1938,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchCompanies: function fetchCompanies() {
-      fetch('');
+      // fetch('/api/companies', {credentials: "same-origin"})
+      // .then(response => response.json())
+      // .then(companies => {
+      //     console.log(this.companies)
+      //     this.companies = [
+      //         {
+      //             name: 'Cravvings',
+      //             email: 'hello@cravvings.com',
+      //             url: 'cravvings.com'
+      //         }
+      //     ]
+      // })
+      this.companies = [{
+        name: 'Cravvings',
+        email: 'hello@cravvings.com',
+        url: 'cravvings.com'
+      }];
     }
   }
 });
@@ -37548,32 +37551,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("table", { staticClass: "table table-hovered" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.companies, function(company) {
+        return _c("tr", { key: company.name }, [
+          _c("td", [_vm._v(_vm._s(company.name))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(company.email))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(company.url))])
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-hovered" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("URL")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Name")])]),
-          _vm._v(" "),
-          _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Email")])]),
-          _vm._v(" "),
-          _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Url")])])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("URL")])
       ])
     ])
   }

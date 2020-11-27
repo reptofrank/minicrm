@@ -8,16 +8,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <a href="#">Name</a>
-                </td>
-                <td>
-                    <a href="#">Email</a>
-                </td>
-                <td>
-                    <a href="#">Url</a>
-                </td>
+            <tr v-for="company in companies" :key="company.name">
+                <td>{{ company.name }}</td>
+                <td>{{ company.email }}</td>
+                <td>{{ company.url }}</td>
             </tr>
         </tbody>
     </table>
@@ -27,14 +21,7 @@
 export default {
     data() {
         return  {
-            companies: [],
-            company: {
-                name: '',
-                url: '',
-                logo: '',
-                email: ''
-            },
-            pagination: {}
+            companies: []
         }
     },
     created() {
@@ -43,7 +30,25 @@ export default {
 
     methods: {
         fetchCompanies() {
-            fetch('')
+            // fetch('/api/companies', {credentials: "same-origin"})
+            // .then(response => response.json())
+            // .then(companies => {
+            //     console.log(this.companies)
+            //     this.companies = [
+            //         {
+            //             name: 'Cravvings',
+            //             email: 'hello@cravvings.com',
+            //             url: 'cravvings.com'
+            //         }
+            //     ]
+            // })
+            this.companies = [
+                    {
+                        name: 'Cravvings',
+                        email: 'hello@cravvings.com',
+                        url: 'cravvings.com'
+                    }
+                ]
         }
     }
 }
