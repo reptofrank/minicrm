@@ -31,8 +31,11 @@ Route::middleware('auth')->group(function(){
 
 
     // Admin Routes
-    Route::get('/users', [AdminController::class, 'users']);
-    Route::post('/users', [AdminController::class, 'addAdminUser']);
 
-    Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);
+    Route::prefix('admin')->group(function(){
+        Route::get('/users', [AdminController::class, 'users']);
+        Route::post('/users', [AdminController::class, 'addAdminUser']);
+
+        Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);
+    });
 });
