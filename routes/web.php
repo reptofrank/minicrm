@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,21 +18,4 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 
-Route::middleware('auth')->group(function(){
-    Route::resource('companies', CompanyController::class)->except('index');
-
-    // Employee Routes
-    Route::resource('employees', EmployeeController::class);
-
-
-    // Admin Routes
-
-    Route::prefix('admin')->group(function(){
-        Route::get('/', [AdminController::class, 'dashboard']);
-
-        Route::get('/users', [AdminController::class, 'users']);
-        Route::post('/users', [AdminController::class, 'addAdminUser']);
-
-        Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);
-    });
-});
+Route::get('/', 'AdminController@index')->middleware('auth');
