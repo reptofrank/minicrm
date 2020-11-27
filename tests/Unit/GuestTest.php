@@ -81,7 +81,7 @@ class GuestTest extends TestCase
         $this->assertCount(3, $data['data']);
     }
 
-    public function testGetCompaniesPagination()
+    public function testPaginationLinks()
     {
         $companies = factory(\App\Company::class, 13)->create();
 
