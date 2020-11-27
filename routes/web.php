@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::get('/companies', 'CompanyController@index');
+Route::get('/', 'CompanyController@index');
 
 Route::middleware('auth')->group(function(){
     Route::resource('companies', CompanyController::class)->except('index');
