@@ -22,3 +22,29 @@
         </tbody>
     </table>
 </template>
+
+<script>
+export default {
+    data() {
+        return  {
+            companies: [],
+            company: {
+                name: '',
+                url: '',
+                logo: '',
+                email: ''
+            },
+            pagination: {}
+        }
+    },
+    created() {
+        this.fetchCompanies();
+    },
+
+    methods: {
+        fetchCompanies() {
+            fetch('')
+        }
+    }
+}
+</script>
