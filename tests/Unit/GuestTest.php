@@ -18,7 +18,7 @@ class GuestTest extends TestCase
     {
         factory(\App\Company::class, 5)->create();
 
-        $response = $this->get('/');
+        $response = $this->get('/api/companies');
 
         $data = $response->json();
 
@@ -36,7 +36,7 @@ class GuestTest extends TestCase
     {
         factory(\App\Company::class, 5)->create();
 
-        $response = $this->get('/');
+        $response = $this->get('/api/companies');
 
         $data = $response->json();
 
@@ -53,7 +53,7 @@ class GuestTest extends TestCase
     {
         factory(\App\Company::class, 13)->create();
 
-        $response = $this->get('/');
+        $response = $this->get('/api/companies');
 
         $data = $response->json();
 
@@ -73,7 +73,7 @@ class GuestTest extends TestCase
     {
         $companies = factory(\App\Company::class, 13)->create();
 
-        $response = $this->get('/?page=3');
+        $response = $this->get('/api/companies?page=3');
 
         $data = $response->json();
 
@@ -85,7 +85,7 @@ class GuestTest extends TestCase
     {
         $companies = factory(\App\Company::class, 13)->create();
 
-        $response = $this->get('/?page=3');
+        $response = $this->get('/api/companies?page=3');
 
         $data = $response->json();
 

@@ -21,7 +21,7 @@ class EmployeeTest extends TestCase
         
         $this->be($employees[0]->user);
 
-        $response = $this->get('/employees');
+        $response = $this->get('/api/employees');
 
         $response->assertStatus(403);
     }
@@ -38,7 +38,7 @@ class EmployeeTest extends TestCase
         
         $this->be($employee->user);
 
-        $response = $this->get('/employees/' . $employee->id);
+        $response = $this->get('/api/employees/' . $employee->id);
         $data = $response->json();
 
         $response->assertOk();
@@ -57,7 +57,7 @@ class EmployeeTest extends TestCase
         
         $this->be($employees[0]->user);
 
-        $response = $this->get('/employees/' . $employees[1]->id);
+        $response = $this->get('/api/employees/' . $employees[1]->id);
 
         $response->assertStatus(403);
     }
@@ -75,7 +75,7 @@ class EmployeeTest extends TestCase
 
         $name = 'Updated Name';
 
-        $response = $this->put('/employees/' . $employee->id, array_merge($employee->toArray(), ['name' => $name]));
+        $response = $this->put('/api/employees/' . $employee->id, array_merge($employee->toArray(), ['name' => $name]));
 
         $updated = $response->json();
         
@@ -91,7 +91,7 @@ class EmployeeTest extends TestCase
         
         $this->be($employee->user);
 
-        $response = $this->delete('/employees/' . $employee->id);
+        $response = $this->delete('/api/employees/' . $employee->id);
 
         $response->assertStatus(403);
     }

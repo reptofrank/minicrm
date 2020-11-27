@@ -22,7 +22,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->get('/admin/users');
+        $response = $this->get('/api/admin/users');
 
         $data = $response->json();
 
@@ -44,7 +44,7 @@ class AdminTest extends TestCase
             'logo' => 'https://www.jobberman.com/images/logo.png'
         ];
 
-        $response = $this->post('/companies', $company);
+        $response = $this->post('/api/companies', $company);
 
         $data = $response->json();
 
@@ -65,7 +65,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->put('/companies/' . $company->id, $company->toArray());
+        $response = $this->put('/api/companies/' . $company->id, $company->toArray());
         $data = $response->json();
         $response->assertOk();
         $this->assertEquals($newName, $data['name']);
@@ -81,7 +81,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->post('/admin/users', $user);
+        $response = $this->post('/api/admin/users', $user);
 
         $response->assertStatus(201);
 
@@ -99,7 +99,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->delete('/admin/users/' . $user->id);
+        $response = $this->delete('/api/admin/users/' . $user->id);
         
         $response->assertStatus(204);
     }
@@ -112,7 +112,7 @@ class AdminTest extends TestCase
 
         $this->be($adminUser);
 
-        $response = $this->delete('/companies/' . $company->id);
+        $response = $this->delete('/api/companies/' . $company->id);
 
         $response->assertStatus(204);
     }

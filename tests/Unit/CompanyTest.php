@@ -22,7 +22,7 @@ class CompanyTest extends TestCase
 
         $this->be($company->user);
 
-        $response = $this->get('/employees');
+        $response = $this->get('/api/employees');
 
         $data = $response->json();
 
@@ -40,7 +40,7 @@ class CompanyTest extends TestCase
 
         $this->be($secondComp->user);
 
-        $response = $this->get('/employees');
+        $response = $this->get('/api/employees');
 
         $this->assertCount(0, $response->json());
     }
@@ -52,7 +52,7 @@ class CompanyTest extends TestCase
         
         $this->be($company->user);
 
-        $response = $this->get('/companies/' . $company->id);
+        $response = $this->get('/api/companies/' . $company->id);
 
         $response->assertOk();
     }
@@ -70,7 +70,7 @@ class CompanyTest extends TestCase
 
         $this->be($company->user);
 
-        $response = $this->post('/employees', $employee);
+        $response = $this->post('/api/employees', $employee);
 
         $result = $response->json();
 
@@ -92,7 +92,7 @@ class CompanyTest extends TestCase
 
         $this->be($company->user);
 
-        $response = $this->delete('/employees/' . $employees[0]->id);
+        $response = $this->delete('/api/employees/' . $employees[0]->id);
 
         $response->assertStatus(204);
     }
@@ -108,7 +108,7 @@ class CompanyTest extends TestCase
 
         $this->be($secondComp->user);
 
-        $response = $this->delete('/employees/' . $firstCompEmp[0]->id);
+        $response = $this->delete('/api/employees/' . $firstCompEmp[0]->id);
 
         $response->assertStatus(403);
     }
