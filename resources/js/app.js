@@ -6,7 +6,22 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+import Companies from './components/Companies.vue';
+
+const routes = [
+    { path: '/', component: Companies },
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +34,9 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('companies', require('./components/Companies.vue').default);
+// Vue.component('companies', require('./components/Companies.vue').default);
+
+// Vue.component('company-info', require('./components/CompanyInfo.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +46,6 @@ Vue.component('companies', require('./components/Companies.vue').default);
 
 const app = new Vue({
     el: '#app',
+    router,
+    render: h => h(Companies)
 });
