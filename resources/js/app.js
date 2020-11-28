@@ -10,11 +10,15 @@ import Vue from 'vue';
 
 import VueRouter from 'vue-router';
 
+Vue.config.productionTip = false;
+
 Vue.use(VueRouter);
 
 import Companies from './components/Companies.vue';
+import Employees from './components/Employees.vue';
 
 const routes = [
+    { path: '/employees', component: Employees },
     { path: '/', component: Companies },
 ]
 
@@ -45,7 +49,6 @@ const router = new VueRouter({
  */
 
 const app = new Vue({
-    el: '#app',
     router,
-    render: h => h(Companies)
-});
+    // render: h => h(Companies)
+}).$mount('#app');
