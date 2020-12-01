@@ -14,12 +14,12 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
-import Companies from './components/Companies.vue';
-import Employees from './components/Employees.vue';
+import Admin from './components/Admin/Admin.vue';
+import Users from './components/Admin/Users.vue';
 
 const routes = [
-    { path: '/employees', component: Employees },
-    { path: '/', component: Companies },
+    { path: '/admin/companies', component: Admin },
+    { path: '/admin/users', component: Users },
 ]
 
 const router = new VueRouter({
@@ -50,5 +50,5 @@ const router = new VueRouter({
 
 const app = new Vue({
     router,
-    render: h => h(Companies)
+    render: h => h(Admin)
 }).$mount('#app');

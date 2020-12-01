@@ -11,7 +11,7 @@
             <tr v-for="employee in employees" :key="employee.name">
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.email }}</td>
-                <td><button @click="delete(employee.id)">Delete</button></td>
+                <td><button v-on:click="deleteEmployee(employee.id)">Delete</button></td>
             </tr>
         </tbody>
     </table>
@@ -33,7 +33,7 @@ export default {
     },
 
     methods: {
-        async delete(id) {
+        async deleteEmployee(event) {
             const response = await axios.get(`/api/employees/${id}`)
         }
     }
