@@ -48,7 +48,7 @@
                         @else
                                 @can('manage-employees')
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link" href="/employees">{{ __('Employees') }}</a>
                                     </li>
                                 @endcan
                             <li class="nav-item">
