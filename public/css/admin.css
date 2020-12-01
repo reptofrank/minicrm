@@ -88,15 +88,8 @@ a, a:hover {
     display: table-cell;
 }
 
-.side-nav__nav-list__nested {
-    list-style: none;
-    margin-bottom: 0;
-    margin-left: 0;
-}
-
-.side-nav__nav-list__nested .side-nav__nav-link {
-    padding-right: 32px;
-    padding-left: 32px;
+.router-link-active {
+    opacity: 0.5;
 }
 
 .content {
