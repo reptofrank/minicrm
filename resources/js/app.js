@@ -19,7 +19,7 @@ import Employees from './components/Employees.vue';
 
 const routes = [
     { path: '/employees', component: Employees },
-    { path: '/', component: Companies },
+    { path: '/:page?', component: Companies },
 ]
 
 const router = new VueRouter({
