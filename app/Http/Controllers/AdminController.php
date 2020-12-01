@@ -10,10 +10,6 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
-    function __construct() {
-        $this->authorize('admin');
-    }
-
     public function dashboard(Request $request)
     {
         return view('dashboard');
