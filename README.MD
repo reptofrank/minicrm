@@ -11,17 +11,23 @@ composer install
 ```
 
 
-## Environment Variables
+## Setup DB
+
+Create database and set environment variables
 
 ```bash
 cp .env.example .env
-php artisan key:generate
+
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
 ```
 
+## Generate app key
 
-## Setup DB
-
-create database and set environment variables DB_DATABASE, DB_USERNAME and DB_PASSWORD
+```bash
+php artisan key:generate
+```
 
 ## Run Migrations
 
@@ -39,17 +45,13 @@ php artisan db:seed
 
 # Testing
 
-create test database
+Create test database and set env vars for test DB in .env.testing
 
 ```bash
 cp .env.example .env .env.testing
 
 php artisan key:generate --env=testing
 ```
-
-
-
-set env vars for test DB
 
 ## Run Migrations for tests
 
