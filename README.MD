@@ -1,28 +1,39 @@
-clone repository
+# MiniCRM
 
-composer install // to install dependencies
+To start, clone repository
+
+* git clone https://github.com/reptofrank/minicrm
+
+## Install dependencies
+
+* composer install
 
 
-# Environment Variables
+## Environment Variables
 
 cp .env.example .env
 
 php artisan key:generate
 
-# Setup DB
-create database and set env variables DB_DATABASE, DB_USERNAME and DB_PASSWORD
+## Setup DB
 
-# Run Migrations
+create database and set environment variables DB_DATABASE, DB_USERNAME and DB_PASSWORD
+
+## Run Migrations
+
 php artisan migrate
 
+## Seed Database
+
+* php artisan db:seed
 
 
 
 
 
 
-Testing
 
+# Testing
 
 create test database
 
@@ -32,42 +43,10 @@ php artisan key:generate --env=testing
 
 set env vars for test DB
 
-# Run Migrations
+## Run Migrations for tests
+
 php artisan migrate --env=testing
 
-# Run Tests
+## Run Tests
+
 php artisan test
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-     * Get employees belonging to another company
-     */
-    public function testNotGetAnotherCompanyEmployee()
-    {
-        list($firstComp, $secondComp) = factory(\App\Company::class, 2)->create();
-
-        $firstComp->employees()->createMany(factory(\App\Employee::class, 3)->make()->toArray());
-
-        $this->be($secondComp->user);
-
-        $response = $this->get('/employees');
-
-        $this->assertCount(0, $response->json());
-    }
