@@ -14,16 +14,16 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
-import Admin from './components/Admin/Admin.vue';
-import Users from './components/Admin/Users.vue';
+import Admin from './components/Admin.vue';
+import Companies from './components/Companies.vue';
+import Users from './components/Users.vue';
 
 const routes = [
-    { path: '/admin', component: Admin },
-    { path: '/admin/users', component: Users },
+    { path: '/companies/:page?', name: 'admin_companies', component: Companies },
+    { path: '/users', name: 'admin_users', component: Users },
 ]
 
 const router = new VueRouter({
-    mode: 'history',
     routes
 })
 
