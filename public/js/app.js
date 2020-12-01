@@ -1951,53 +1951,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      companies: []
+      companies: [],
+      page: {},
+      meta: {},
+      base_url: '/companies'
     };
   },
   created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/companies');
-
-            case 2:
-              response = _context.sent;
-              _this.companies = response.data.data;
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
+    this.fetchCompanies(this.$route.params.page);
   },
   methods: {
     fetchCompanies: function fetchCompanies() {
-      var _this2 = this;
+      var _arguments = arguments,
+          _this = this;
 
-      fetch('/api/companies', {
-        credentials: "same-origin"
-      }).then(function (response) {
-        return response.json();
-      }).then(function (companies) {
-        console.log(_this2.companies);
-        _this2.companies = [{
-          name: 'Cravvings',
-          email: 'hello@cravvings.com',
-          url: 'cravvings.com'
-        }];
-      });
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var page, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/companies?page=".concat(page));
+
+              case 3:
+                response = _context.sent;
+                _this.page = response.data.links;
+                _this.companies = response.data.data;
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -38450,32 +38456,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-hovered" }, [
-    _vm._m(0),
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("table", { staticClass: "table table-hovered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.companies, function(company) {
+          return _c("tr", { key: company.name }, [
+            _c("td", [_vm._v(_vm._s(company.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(company.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(company.url))]),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c("router-link", { attrs: { to: "/employees" } }, [
+                  _vm._v("Employees")
+                ])
+              ],
+              1
+            )
+          ])
+        }),
+        0
+      )
+    ]),
     _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.companies, function(company) {
-        return _c("tr", { key: company.name }, [
-          _c("td", [_vm._v(_vm._s(company.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(company.email))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(company.url))]),
-          _vm._v(" "),
-          _c(
-            "td",
-            [
-              _c("router-link", { attrs: { to: "/employees" } }, [
-                _vm._v("Employees")
-              ])
-            ],
-            1
-          )
+    _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+      _c("ul", { staticClass: "pagination" }, [
+        _c("li", { class: { "page-item": true, disabled: !_vm.page.prev } }, [
+          _c("a", { staticClass: "page-link" }, [_vm._v("Previous")])
+        ]),
+        _vm._v(" "),
+        _c("li", { class: { "page-item": true, disabled: !_vm.page.next } }, [
+          _c("a", { staticClass: "page-link" }, [_vm._v("Next")])
         ])
-      }),
-      0
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
