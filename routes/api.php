@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function(){
 
     // Admin Routes
 
-    Route::prefix('admin')->group(function(){
+    Route::prefix('admin')->middleware('can:admin')->group(function(){
         Route::get('/', 'AdminController@dashboard');
 
         Route::get('/users', 'AdminController@users');
