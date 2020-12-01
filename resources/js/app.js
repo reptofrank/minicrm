@@ -14,6 +14,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
+import App from './components/App.vue';
 import Companies from './components/Companies.vue';
 import Employees from './components/Employees.vue';
 
@@ -49,5 +50,5 @@ const router = new VueRouter({
 
 const app = new Vue({
     router,
-    render: h => h(Companies)
+    render: h => h(App)
 }).$mount('#app');
