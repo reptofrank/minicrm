@@ -9,11 +9,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="user in users" :key="user.name">
+            <tr v-for="user in users" :key="user.name" v-bind:data-id="user.id">
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.url }}</td>
-                <td><button v-on:click="deleteUser(user.id)">Delete</button></td>
+                <td>{{ user.role }}</td>
+                <td><button v-on:click="deleteUser">Delete</button></td>
             </tr>
         </tbody>
     </table>
@@ -34,8 +34,13 @@ export default {
     },
 
     methods: {
-        deleteUser(id) {
-            console.log('delete user: ' + id)
+        async deleteUser(e) {
+            console.log(e.target.closest('tr').dataset.id)
+            // const res = confirm('Are you sure you want to delete this user?')
+            // if(res) {
+            //     const response = await axios.delete(`/api/admin/users/${id}`)
+            //     if(response.status === 204) alert('user deleted successfully')
+            // }
         }
     }
 }
