@@ -97,4 +97,11 @@ class GuestTest extends TestCase
         $this->assertArrayHasKey('prev', $data['links']);
         $this->assertNull($data['links']['next']);
     }
+
+    public function testAdminAuthRedirect()
+    {
+        $response = $this->get('/api/admin/users');
+
+        $response->assertStatus(302);
+    }
 }
