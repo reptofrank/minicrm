@@ -53861,11 +53861,10 @@ var routes = [{
   path: '/employees',
   component: _components_Employees_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
-  path: '/',
+  path: '/:page?',
   component: _components_Companies_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  mode: 'history',
   routes: routes
 });
 /**
