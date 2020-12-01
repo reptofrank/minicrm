@@ -19,7 +19,5 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/admin', 'AdminController@dashboard')->middleware(['auth', 'can:admin'])->name('dashboard');
 
-Route::get('/employees', 'EmployeeController@index')->name('employees');
-
 Route::get('/{page?}', 'HomeController@index')->name('home');
 
