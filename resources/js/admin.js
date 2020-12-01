@@ -18,7 +18,7 @@ import Admin from './components/Admin/Admin.vue';
 import Users from './components/Admin/Users.vue';
 
 const routes = [
-    { path: '/admin/companies', component: Admin },
+    { path: '/admin', component: Admin },
     { path: '/admin/users', component: Users },
 ]
 

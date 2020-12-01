@@ -6,14 +6,18 @@ To start, clone repository
 
 ## Install dependencies
 
-* composer install
+```bash
+composer install
+```
 
 
 ## Environment Variables
 
+```bash
 cp .env.example .env
-
 php artisan key:generate
+```
+
 
 ## Setup DB
 
@@ -21,15 +25,15 @@ create database and set environment variables DB_DATABASE, DB_USERNAME and DB_PA
 
 ## Run Migrations
 
+```bash
 php artisan migrate
+```
 
 ## Seed Database
 
-* php artisan db:seed
-
-
-
-
+```bash
+php artisan db:seed
+```
 
 
 
@@ -37,16 +41,25 @@ php artisan migrate
 
 create test database
 
+```bash
 cp .env.example .env .env.testing
 
 php artisan key:generate --env=testing
+```
+
+
 
 set env vars for test DB
 
 ## Run Migrations for tests
 
+```bash
 php artisan migrate --env=testing
+```
+
 
 ## Run Tests
 
+```bash
 php artisan test
+```
