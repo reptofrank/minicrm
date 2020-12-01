@@ -1,5 +1,6 @@
 <template>
-    <table class="table table-hovered">
+    <div class="container-fluid">
+        <table class="table table-hovered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -17,6 +18,18 @@
             </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li v-bind:class="{'page-item': true, disabled: !page.prev}">
+                <a class="page-link">Previous</a>
+            </li>
+            
+            <li v-bind:class="{'page-item': true, disabled: !page.next}">
+                <a class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
+    </div>
 </template>
 
 <script>
@@ -25,28 +38,21 @@ import axios from 'axios'
 export default {
     data() {
         return  {
-            companies: []
+            companies: [],
+            page: {},
+            meta: {},
+            base_url: '/companies'
         }
     },
-    async created() {
-        const response = await axios.get('/api/companies')
-        this.companies = response.data.data
+    created() {
+        this.fetchCompanies(this.$route.params.page)
     },
 
     methods: {
-        fetchCompanies() {
-            fetch('/api/companies', {credentials: "same-origin"})
-            .then(response => response.json())
-            .then(companies => {
-                console.log(this.companies)
-                this.companies = [
-                    {
-                        name: 'Cravvings',
-                        email: 'hello@cravvings.com',
-                        url: 'cravvings.com'
-                    }
-                ]
-            })
+        async fetchCompanies(page = 1) {
+            const response = await axios.get(`/api/companies?page=${page}`)
+            this.page = response.data.links
+            this.companies = response.data.data
         }
     }
 }
