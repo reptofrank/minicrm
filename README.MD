@@ -41,6 +41,20 @@ php artisan migrate
 php artisan db:seed
 ```
 
+# Frontend
+
+Install dependencies and run dev build
+
+```bash
+npm install 
+npm run dev
+```
+
+```bash
+php artisan serve
+```
+
+Go to http://localhost:8000 to view site
 
 
 # Testing
