@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Employee;
+use App\Http\Resources\User as ResourcesUser;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class AdminController extends Controller
      */
     public function users(Request $request)
     {
-        return response()->json(User::all());
+        return response()->json(ResourcesUser::collection(User::all()));
     }
 
     /**
