@@ -20,7 +20,6 @@ class AdminController extends Controller
      */
     public function users(Request $request)
     {
-        $this->authorize('admin');
         return response()->json(User::all());
     }
 
@@ -29,8 +28,6 @@ class AdminController extends Controller
      */
     public function addAdminUser(Request $request)
     {
-        $this->authorize('admin');
-
         $user = $this->createUser($request->all(), 'admin');
 
         return response()->json($user, 201);
@@ -41,8 +38,6 @@ class AdminController extends Controller
      */
     public function deleteUser(User $user)
     {
-        $this->authorize('admin');
-
         switch ($user->role) {
             case 'company':
                 Company::where('user_id', $user->id)->delete();
