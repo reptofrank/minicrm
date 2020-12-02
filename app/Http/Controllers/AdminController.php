@@ -41,7 +41,9 @@ class AdminController extends Controller
     {
         switch ($user->role) {
             case 'company':
-                Company::where('user_id', $user->id)->delete();
+                $company = Company::where('user_id', $user->id)->first();
+                Employee::where('company_id', $company->id)->delete();
+                $company->delete();
                 break;
             case 'employee':
                 Employee::where('user_id', $user->id)->delete();
