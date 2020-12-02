@@ -1,12 +1,12 @@
 <template>
     <div class="container-fluid">
+        <h3>Companies</h3>
         <table class="table table-hovered">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>URL</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -14,7 +14,6 @@
                 <td>{{ company.name }}</td>
                 <td>{{ company.email }}</td>
                 <td>{{ company.url }}</td>
-                <td><router-link to="/employees">Employees</router-link></td>
             </tr>
         </tbody>
     </table>
