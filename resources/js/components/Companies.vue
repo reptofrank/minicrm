@@ -17,31 +17,30 @@
             </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li v-bind:class="{'page-item': true, disabled: !page.prev}">
-                <a class="page-link">Previous</a>
-            </li>
-            
-            <li v-bind:class="{'page-item': true, disabled: !page.next}">
-                <a class="page-link">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <pagination 
+        v-bind:prev="page.prev"
+        v-bind:next="page.next"
+        v-bind:current_page="page.current_page"
+        v-on:previous-page="previousPage"
+        v-on:next-page="nextPage"
+    ></pagination>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import Pagination from './Pagination.vue';
 
 export default {
     data() {
         return  {
             companies: [],
             page: {},
-            meta: {},
             base_url: '/companies'
         }
+    },
+    components: {
+        pagination: Pagination
     },
     created() {
         this.fetchCompanies(this.$route.params.page)
@@ -50,8 +49,19 @@ export default {
     methods: {
         async fetchCompanies(page = 1) {
             const response = await axios.get(`/api/companies?page=${page}`)
-            this.page = response.data.links
+            let {next, prev, current_page} = {...response.data.links, ...response.data.meta}
             this.companies = response.data.data
+            this.page = {next, prev, current_page}
+        },
+        previousPage(){
+            if(this.page.prev) {
+                this.fetchCompanies(this.page.current_page - 1)
+            }
+        },
+        nextPage(){
+            if(this.page.next) {
+                this.fetchCompanies(this.page.current_page + 1)
+            }
         }
     }
 }
