@@ -2,7 +2,11 @@
 
 To start, clone repository
 
-* git clone https://github.com/reptofrank/minicrm
+```bash
+git clone https://github.com/reptofrank/minicrm
+
+cd minicrm
+```
 
 ## Install dependencies
 
@@ -40,7 +44,10 @@ php artisan migrate
 ```bash
 php artisan db:seed
 ```
+Password for Employee level users: employee
+Password for Company level users: company
 
+The default role assigned to users is admin, so any account registered will have admin privileges.
 
 
 # Testing
