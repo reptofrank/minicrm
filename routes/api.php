@@ -16,23 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/companies', 'CompanyController@index');
 
-Route::get('/user', 'HomeController@getUser')->name('get_user');
 
-Route::middleware('auth')->group(function(){
-    Route::resource('companies', 'CompanyController')->except('index');
-
-    // Employee Routes
-    Route::resource('employees', 'EmployeeController');
-
-
-    // Admin Routes
-
-    Route::prefix('admin')->middleware('can:admin')->group(function(){
-        Route::get('/', 'AdminController@dashboard');
-
-        Route::get('/users', 'AdminController@users');
-        Route::post('/users', 'AdminController@addAdminUser');
-
-        Route::delete('/users/{user}', 'AdminController@deleteUser');
-    });
-});
