@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\User;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,7 +21,9 @@ class HomeController extends Controller
     public function getUser(Request $request)
     {
         $user = $request->user();
-        $res = $user ? new User($user) : null;
+        $res = $user ? new UserResource($user) : null;
+
+        // var_dump($res);die;
 
         return response()->json($res);
     }
