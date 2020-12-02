@@ -50,6 +50,22 @@ Password for Company level users: company
 The default role assigned to users is admin, so any account registered will have admin privileges.
 
 
+# Frontend
+
+Install dependencies and run dev build
+
+```bash
+npm install 
+npm run dev
+```
+
+```bash
+php artisan serve
+```
+
+Go to http://localhost:8000 to view site
+
+
 # Testing
 
 Create test database and set env vars for test DB in .env.testing
@@ -65,7 +81,6 @@ php artisan key:generate --env=testing
 ```bash
 php artisan migrate --env=testing
 ```
-
 
 ## Run Tests
 
