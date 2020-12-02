@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Http\Resources\Employee as ResourcesEmployee;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -20,7 +21,7 @@ class EmployeeController extends Controller
 
         $employees = Employee::where(['company_id' => $user->company->id])->get();
 
-        return response()->json($employees);
+        return response()->json(['data' => ResourcesEmployee::collection($employees), 'company' => $user->company->name]);
     }
 
     /**
