@@ -90,6 +90,7 @@ a, a:hover {
 
 .router-link-active {
     opacity: 0.5;
+    color: yellow;
 }
 
 .content {
