@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Employee;
 use App\Http\Resources\Company as CompanyResource;
 use Illuminate\Http\Request;
 
@@ -78,6 +79,7 @@ class CompanyController extends Controller
         $this->authorize('admin');
 
         $company->user->delete();
+        Employee::where('company_id', $company->id)->delete();
         $company->delete();
 
         return response(null, 204);
