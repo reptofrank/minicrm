@@ -21,7 +21,7 @@ class AdminController extends Controller
      */
     public function users(Request $request)
     {
-        return response()->json(ResourcesUser::collection(User::all()));
+        return ResourcesUser::collection(User::paginate(10));
     }
 
     /**
