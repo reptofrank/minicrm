@@ -26,7 +26,7 @@ class CompanyTest extends TestCase
 
         $data = $response->json();
 
-        $this->assertCount(3, $data);
+        $this->assertCount(3, $data['data']);
     }
 
     /**
@@ -42,7 +42,9 @@ class CompanyTest extends TestCase
 
         $response = $this->get('/api/employees');
 
-        $this->assertCount(0, $response->json());
+        $result = $response->json();
+
+        $this->assertCount(0, $result['data']);
     }
 
 
