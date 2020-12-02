@@ -2076,7 +2076,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Pagination_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination.vue */ "./resources/js/components/Pagination.vue");
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -2104,37 +2111,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: []
+      users: [],
+      page: {}
     };
   },
   created: function created() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/admin/users');
+              _this.fetchUsers();
 
-            case 2:
-              response = _context.sent;
-              console.log(response);
-              _this.users = response.data;
-
-            case 5:
+            case 1:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
     }))();
+  },
+  components: {
+    pagination: _Pagination_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
     deleteUser: function deleteUser(e) {
@@ -2171,6 +2183,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    fetchUsers: function fetchUsers() {
+      var _arguments = arguments,
+          _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var page, response, _response$data$links$, next, prev, current_page;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/admin/users?page=".concat(page));
+
+              case 3:
+                response = _context3.sent;
+                _response$data$links$ = _objectSpread(_objectSpread({}, response.data.links), response.data.meta), next = _response$data$links$.next, prev = _response$data$links$.prev, current_page = _response$data$links$.current_page;
+                _this2.users = response.data.data;
+                _this2.page = {
+                  next: next,
+                  prev: prev,
+                  current_page: current_page
+                };
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    previousPage: function previousPage() {
+      if (this.page.prev) {
+        this.fetchUsers(this.page.current_page - 1);
+      }
+    },
+    nextPage: function nextPage() {
+      if (this.page.next) {
+        this.fetchUsers(this.page.current_page + 1);
+      }
     }
   }
 });
@@ -38815,36 +38870,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("h3", [_vm._v("Users")]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-hovered" }, [
-      _vm._m(0),
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("h3", [_vm._v("Users")]),
       _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.users, function(user) {
-          return _c("tr", { key: user.email, attrs: { "data-id": user.id } }, [
-            _c("td", [_vm._v(_vm._s(user.email))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.role))]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: { click: _vm.deleteUser }
-                },
-                [_vm._v("Delete")]
-              )
-            ])
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+      _c("table", { staticClass: "table table-hovered" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.users, function(user) {
+            return _c(
+              "tr",
+              { key: user.email, attrs: { "data-id": user.id } },
+              [
+                _c("td", [_vm._v(_vm._s(user.email))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.role))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: { click: _vm.deleteUser }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("pagination", {
+        attrs: {
+          prev: _vm.page.prev,
+          next: _vm.page.next,
+          current_page: _vm.page.current_page
+        },
+        on: { "previous-page": _vm.previousPage, "next-page": _vm.nextPage }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
