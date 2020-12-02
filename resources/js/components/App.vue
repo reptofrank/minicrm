@@ -17,9 +17,15 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item" v-if="user.role === 'admin'">
+                            <a class="nav-link" href="/admin">Dashboard</a>
+                        </li>
+                        <li class="nav-item" v-if="user.role === 'company'">
+                            <router-link class="nav-link" to="/employees">Employees</router-link>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login" v-if="user.name">Logout</a>
-                            <a class="nav-link" href="/logout" v-else>Login</a>
+                            <a class="nav-link" href="/logout" v-if="user.role">Logout</a>
+                            <a class="nav-link" href="/login" v-else>Login</a>
                         </li>
                     </ul>
                 </div>
@@ -49,8 +55,9 @@ export default {
 
     methods: {
         checkUser() {
-            axios.get(`/api/user`)
+            axios.get(`/user`)
             .then(response => {
+                // console.log(response.data)
                 this.user = response.data
                 // console.log(response.data)
             })
