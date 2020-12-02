@@ -12,7 +12,7 @@ class AdminTest extends TestCase
     /**
      * Test Get all users 
      */
-    public function testViewAllUsers()
+    public function testViewAllUsersPaginated()
     {
         factory(\App\Company::class, 3)->create()->each(function($company){
             $company->employees()->createMany(factory(\App\Employee::class, 5)->make()->toArray());
@@ -27,7 +27,30 @@ class AdminTest extends TestCase
         $data = $response->json();
 
         $response->assertOk();
-        $this->assertCount(19, $data);
+        $this->assertCount(10, $data['data']);
+        $this->assertArrayHasKey('links', $data);
+        $this->assertArrayHasKey('meta', $data);
+    }
+
+    /**
+     * Test Get all users 
+     */
+    public function testViewAllUsersPaginatedLastPage()
+    {
+        factory(\App\Company::class, 3)->create()->each(function($company){
+            $company->employees()->createMany(factory(\App\Employee::class, 5)->make()->toArray());
+        });
+
+        $adminUser = factory(\App\User::class)->create();
+
+        $this->be($adminUser);
+
+        $response = $this->get('/api/admin/users?page=2');
+
+        $data = $response->json();
+
+        $response->assertOk();
+        $this->assertCount(9, $data['data']);
     }
 
     public function testCreateCompany()
