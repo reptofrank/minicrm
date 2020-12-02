@@ -1963,7 +1963,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2050,6 +2049,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2071,9 +2071,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 2:
               response = _context.sent;
-              _this.users = response.data.data;
+              console.log(response);
+              _this.users = response.data;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -2084,17 +2085,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     deleteUser: function deleteUser(e) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var row, id, res, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log(e.target.closest('tr').dataset.id); // const res = confirm('Are you sure you want to delete this user?')
-                // if(res) {
-                //     const response = await axios.delete(`/api/admin/users/${id}`)
-                //     if(response.status === 204) alert('user deleted successfully')
-                // }
+                row = e.target.closest('tr');
+                id = row.dataset.id;
+                res = confirm('Are you sure you want to delete this user?');
 
-              case 1:
+                if (!res) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/admin/users/".concat(id));
+
+              case 6:
+                response = _context2.sent;
+
+                if (response.status === 204) {
+                  row.style.display = 'none';
+                  alert('user deleted successfully');
+                }
+
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -38477,7 +38493,7 @@ var render = function() {
               attrs: { id: "navbarSupportedContent" }
             },
             [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }),
+              _vm._m(1),
               _vm._v(" "),
               _c("ul", { staticClass: "navbar-nav ml-auto" }, [
                 _c(
@@ -38577,6 +38593,18 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "/logout" } }, [
+          _vm._v("Logout")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -38601,6 +38629,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
+    _c("h3", [_vm._v("Companies")]),
+    _vm._v(" "),
     _c("table", { staticClass: "table table-hovered" }, [
       _vm._m(0),
       _vm._v(" "),
@@ -38612,17 +38642,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(company.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(company.url))]),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c("router-link", { attrs: { to: "/employees" } }, [
-                  _vm._v("Employees")
-                ])
-              ],
-              1
-            )
+            _c("td", [_vm._v(_vm._s(company.url))])
           ])
         }),
         0
@@ -38653,9 +38673,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("URL")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
+        _c("th", [_vm._v("URL")])
       ])
     ])
   }
@@ -38681,26 +38699,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-hovered" }, [
-    _vm._m(0),
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("h3", [_vm._v("Users")]),
     _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.users, function(user) {
-        return _c("tr", { key: user.name, attrs: { "data-id": user.id } }, [
-          _c("td", [_vm._v(_vm._s(user.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.email))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.role))]),
-          _vm._v(" "),
-          _c("td", [
-            _c("button", { on: { click: _vm.deleteUser } }, [_vm._v("Delete")])
+    _c("table", { staticClass: "table table-hovered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.users, function(user) {
+          return _c("tr", { key: user.email, attrs: { "data-id": user.id } }, [
+            _c("td", [_vm._v(_vm._s(user.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(user.role))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: { click: _vm.deleteUser }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
           ])
-        ])
-      }),
-      0
-    )
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38710,8 +38737,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
         _c("th", [_vm._v("Role")]),

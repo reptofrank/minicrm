@@ -1958,6 +1958,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1972,7 +1978,8 @@ __webpack_require__.r(__webpack_exports__);
     checkUser: function checkUser() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user").then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user").then(function (response) {
+        // console.log(response.data)
         _this.user = response.data; // console.log(response.data)
       });
     }
@@ -2000,7 +2007,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -2118,11 +2124,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      employees: []
+      employees: [],
+      company: ''
     };
   },
   created: function created() {
@@ -2139,8 +2149,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 2:
               response = _context.sent;
-              console.log(response.data.data);
               _this.employees = response.data.data;
+              _this.company = response.data.company;
 
             case 5:
             case "end":
@@ -38550,16 +38560,44 @@ var render = function() {
               _c("ul", { staticClass: "navbar-nav mr-auto" }),
               _vm._v(" "),
               _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+                _vm.user.role === "admin"
+                  ? _c("li", { staticClass: "nav-item" }, [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link", attrs: { href: "/admin" } },
+                        [_vm._v("Dashboard")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.user.role === "company"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/employees" }
+                          },
+                          [_vm._v("Employees")]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("li", { staticClass: "nav-item" }, [
-                  _vm.user.name
+                  _vm.user.role
                     ? _c(
                         "a",
-                        { staticClass: "nav-link", attrs: { href: "/login" } },
+                        { staticClass: "nav-link", attrs: { href: "/logout" } },
                         [_vm._v("Logout")]
                       )
                     : _c(
                         "a",
-                        { staticClass: "nav-link", attrs: { href: "/logout" } },
+                        { staticClass: "nav-link", attrs: { href: "/login" } },
                         [_vm._v("Login")]
                       )
                 ])
@@ -38619,6 +38657,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
+    _c("h3", [_vm._v("Companies")]),
+    _vm._v(" "),
     _c("table", { staticClass: "table table-hovered" }, [
       _vm._m(0),
       _vm._v(" "),
@@ -38630,17 +38670,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(company.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(company.url))]),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c("router-link", { attrs: { to: "/employees" } }, [
-                  _vm._v("Employees")
-                ])
-              ],
-              1
-            )
+            _c("td", [_vm._v(_vm._s(company.url))])
           ])
         }),
         0
@@ -38671,9 +38701,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("URL")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
+        _c("th", [_vm._v("URL")])
       ])
     ])
   }
@@ -38699,34 +38727,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-hovered" }, [
-    _vm._m(0),
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("h3", [_vm._v(_vm._s(_vm.company))]),
     _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.employees, function(employee) {
-        return _c("tr", { key: employee.name }, [
-          _c("td", [_vm._v(_vm._s(employee.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(employee.email))]),
-          _vm._v(" "),
-          _c("td", [
-            _c(
-              "button",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.deleteEmployee(employee.id)
+    _c("table", { staticClass: "table table-hovered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.employees, function(employee) {
+          return _c("tr", { key: employee.name }, [
+            _c("td", [_vm._v(_vm._s(employee.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(employee.email))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteEmployee(employee.id)
+                    }
                   }
-                }
-              },
-              [_vm._v("Delete")]
-            )
+                },
+                [_vm._v("Delete")]
+              )
+            ])
           ])
-        ])
-      }),
-      0
-    )
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
