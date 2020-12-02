@@ -17,22 +17,32 @@
                 </tr>
             </tbody>
         </table>
+        <pagination 
+            v-bind:prev="page.prev"
+            v-bind:next="page.next"
+            v-bind:current_page="page.current_page"
+            v-on:previous-page="previousPage"
+            v-on:next-page="nextPage"
+        ></pagination>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import Pagination from './Pagination.vue';
 
 export default {
     data() {
         return  {
-            users: []
+            users: [],
+            page: {}
         }
     },
     async created() {
-        const response = await axios.get('/api/admin/users')
-        console.log(response)
-        this.users = response.data
+        this.fetchUsers()
+    },
+    components: {
+        pagination: Pagination
     },
 
     methods: {
@@ -46,6 +56,22 @@ export default {
                     row.style.display = 'none';
                     alert('user deleted successfully')
                 }
+            }
+        },
+        async fetchUsers(page = 1){
+            const response = await axios.get(`/api/admin/users?page=${page}`)
+            let {next, prev, current_page} = {...response.data.links, ...response.data.meta}
+            this.users = response.data.data
+            this.page = {next, prev, current_page}
+        },
+        previousPage(){
+            if(this.page.prev) {
+                this.fetchUsers(this.page.current_page - 1)
+            }
+        },
+        nextPage(){
+            if(this.page.next) {
+                this.fetchUsers(this.page.current_page + 1)
             }
         }
     }
